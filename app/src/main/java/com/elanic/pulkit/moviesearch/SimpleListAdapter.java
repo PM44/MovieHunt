@@ -11,8 +11,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewHolder> {
@@ -45,11 +50,12 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
         h1 = holder;
         holder.title.setText((String) movieList[position].getTitle());
         holder.description.setText((String) movieList[position].getYear());
-
+        Picasso.with(parentAct).load(movieList[position].getPoster()).into(holder.poster);
         for (int i = 0; i < getItemCount(); i++) {
             //animate(itemView, i);
         }
     }
+
     @Override
     public int getItemCount() {
         Log.d("itemCount", movieList.length + "");
@@ -59,10 +65,13 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected TextView title;
         protected TextView description;
+        protected CircleImageView poster;
+
         public ListViewHolder(final View vi) {
             super(vi);
             title = (TextView) vi.findViewById(R.id.textView6);
             description = (TextView) vi.findViewById(R.id.textView7);
+            poster = (CircleImageView) vi.findViewById(R.id.imageView4);
             vi.setOnClickListener(this);
 
         }
