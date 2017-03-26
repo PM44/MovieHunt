@@ -70,6 +70,7 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         return s1;
     }
 
+
     public void getMovieList(Search[] movies) {
         Search[] movieList = movies;
         recList.setHasFixedSize(true);
