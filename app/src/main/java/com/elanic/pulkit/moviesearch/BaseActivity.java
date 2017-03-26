@@ -12,12 +12,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     String type="movie";
     String movie="Sultan";
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
+    private Search[] movieList;
+    private String[] titleList;
+    private String[] imageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.body().getSearch() != null)
                 {
-                    Toast.makeText(getApplicationContext(),response.body().getSearch()+"",Toast.LENGTH_LONG).show();
+                    movieList=response.body().getSearch();
                 }
             }
             @Override
