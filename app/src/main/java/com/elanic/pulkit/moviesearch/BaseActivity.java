@@ -19,8 +19,11 @@ public class BaseActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private Search[] movieList;
-    private String[] titleList;
-    private String[] imageUrl;
+    public SimpleFragmentInteraction simpleFragmentInteraction;
+    public interface SimpleFragmentInteraction
+    {
+        public void getMovieList(Search[] movies);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (response.body().getSearch() != null)
                 {
                     movieList=response.body().getSearch();
+                    simpleFragmentInteraction.getMovieList(movieList);
                 }
             }
             @Override
