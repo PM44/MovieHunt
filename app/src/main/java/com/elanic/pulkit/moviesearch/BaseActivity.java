@@ -31,7 +31,12 @@ public class BaseActivity extends AppCompatActivity {
     private Search[] movieList;
     private EditText searchField;
     public SimpleFragmentInteraction simpleFragmentInteraction;
+    public GridFragmentInteraction gridFragmentInteraction;
     public interface SimpleFragmentInteraction
+    {
+        public void getMovieList(Search[] movies);
+    }
+    public interface GridFragmentInteraction
     {
         public void getMovieList(Search[] movies);
     }
@@ -90,6 +95,7 @@ public class BaseActivity extends AppCompatActivity {
                 {
                     movieList=response.body().getSearch();
                     simpleFragmentInteraction.getMovieList(movieList);
+                    gridFragmentInteraction.getMovieList(movieList);
                 }
             }
             @Override
