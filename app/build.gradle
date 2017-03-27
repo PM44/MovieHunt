@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.elanic.pulkit.moviesearch"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.florent37:materialtextfield:1.0.7'
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
-    compile 'br.com.mauker.materialsearchview:materialsearchview:1.2.2'
     testCompile 'junit:junit:4.12'
 }

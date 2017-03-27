@@ -8,12 +8,16 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:background="@drawable/grid_card_background"
     android:transitionName="qwerty2"
+    android:paddingTop="4dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
     >
 
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:scaleType="centerCrop"
         card_view:srcCompat="@mipmap/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
