@@ -19,7 +19,6 @@ import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
 public class SimpleListFragment extends Fragment implements BaseActivity.SimpleFragmentInteraction {
     public RecyclerView recList;
     View view;
-
     public SimpleListFragment() {
         // Required empty public constructor
     }
@@ -56,8 +55,9 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         });
         ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(simpleListAdapter);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
-        alphaAdapter.setDuration(1000);
+        alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
+        recList.setAdapter(alphaAdapter);
         return view;
     }
 
@@ -89,6 +89,6 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(1000);
         alphaAdapter.setFirstOnly(false);
-        recList.setAdapter(ca);
+        recList.setAdapter(alphaAdapter);
     }
 }
