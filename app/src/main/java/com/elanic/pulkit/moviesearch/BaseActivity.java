@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.provider.ContactsContract;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.SharedPreferencesCompat;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 public class BaseActivity extends AppCompatActivity {
 
     String type = "movie";
-    String movie = "";
+    String movie = "A";
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private Search[] movieList;
@@ -67,8 +68,10 @@ public class BaseActivity extends AppCompatActivity {
         searchButton=(ImageButton)findViewById(R.id.imageButton);
         backButton=(ImageButton)findViewById(R.id.imageButton2);
         textView=(TextView)findViewById(R.id.bar_title1);
+        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font1.ttf");
+        textView.setTypeface(typeFace);
         searchField = (EditText) findViewById(R.id.editText4);
-
+        movieTitle("a");
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,6 +139,6 @@ public class BaseActivity extends AppCompatActivity {
         searchButton.setVisibility(View.INVISIBLE);
         backButton.setVisibility(View.VISIBLE);
         textView.setVisibility(View.INVISIBLE);
-        searchField.setCursorVisible(true);
+        searchField.setCursorVisible(true   );
     }
 }

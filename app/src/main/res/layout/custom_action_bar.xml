@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="7"
+        android:textSize="20dp"
         android:id="@+id/editText4"
         android:backgroundTint="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
@@ -27,7 +28,7 @@
         android:text="Movies"
         android:visibility="visible"
         android:textStyle="bold"
-        android:textSize="27dp"
+        android:textSize="38dp"
         android:layout_marginStart="13dp"
         android:layout_alignBaseline="@+id/editText4"
         android:layout_alignBottom="@+id/editText4"
@@ -36,25 +37,24 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/reverse"
-        android:id="@+id/imageButton2"
-        android:onClick="back"
-        android:background="@color/colorAccent"
-        android:layout_alignTop="@+id/imageButton"
-        android:layout_toStartOf="@+id/imageButton"
-        android:visibility="invisible"
-        />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:srcCompat="@drawable/search"
         android:id="@+id/imageButton"
         android:onClick="search"
-        android:layout_marginEnd="18dp"
-        android:layout_alignTop="@+id/editText4"
+        android:layout_marginEnd="19dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/reverse"
+        android:id="@+id/imageButton2"
+        android:onClick="back"
+        android:background="@color/colorAccent"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/bar_title1"
+        android:layout_toStartOf="@+id/imageButton" />
 
 
 </RelativeLayout>

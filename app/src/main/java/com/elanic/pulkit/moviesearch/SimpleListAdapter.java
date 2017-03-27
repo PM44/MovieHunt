@@ -1,6 +1,7 @@
 package com.elanic.pulkit.moviesearch;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.elanic.pulkit.moviesearch.R.id.textView;
 
 
 class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewHolder> {
@@ -72,6 +75,9 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
             title = (TextView) vi.findViewById(R.id.textView6);
             description = (TextView) vi.findViewById(R.id.textView7);
             poster = (CircleImageView) vi.findViewById(R.id.imageView4);
+            Typeface typeFace=Typeface.createFromAsset(parentAct.getAssets(),"font2.ttf");
+            title.setTypeface(typeFace);
+            description.setTypeface(typeFace);
             vi.setOnClickListener(this);
 
         }
