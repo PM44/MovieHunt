@@ -32,7 +32,6 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
     private ArrayList<Search> movies;
     private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
     ScaleInAnimationAdapter alphaAdapter;
-    ScaleInAnimationAdapter alphaAdapter1;
     private EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
@@ -76,6 +75,7 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
                 loadNextDataFromApi(page);
             }
         };
+        recList.addOnScrollListener(scrollListener);
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,6 +112,9 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
     }
     public void getMovie(String movie)
     {
+        movieList.clear();
+        alphaAdapter.notifyDataSetChanged();
+        scrollListener.resetState();
         movieName=movie;
         loadNextDataFromApi(1);
         recList.setHasFixedSize(true);
@@ -131,29 +134,16 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         alphaAdapter.setDuration(1000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
-    }
-
-   /* public void getMovieList(Search[] movies) {
-        movieList = movies;
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
-        SimpleListAdapter ca = new SimpleListAdapter(movieList, getActivity(), new SimpleListAdapter.OnItemClickListener() {
+        scrollListener = new EndlessRecyclerViewScrollListener(llm) {
             @Override
-            public void onItemClick() {
-                Intent i = new Intent(getContext(), BaseActivity.class);
-                startActivity(i);
-                getActivity().finish();
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
             }
-        });
-        alphaAdapter = new ScaleInAnimationAdapter(ca);
-        alphaAdapter.setInterpolator(new OvershootInterpolator());
-        alphaAdapter.setDuration(1000);
-        alphaAdapter.setFirstOnly(false);
-        recList.setAdapter(alphaAdapter);
-    }*/
+        };
+        recList.addOnScrollListener(scrollListener);
+    }
     public void loadNextDataFromApi(final int offset) {
+        Toast.makeText(getActivity(),"Page "+ offset,Toast.LENGTH_SHORT).show();
         omdbapi.Factory.getInstance().getInfo(movieName,"movie",offset).enqueue(new Callback<Movies>() {
 
             @Override

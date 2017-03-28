@@ -113,23 +113,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void movieTitle(String movie) {
         simpleFragmentInteraction.getMovie(movie);
-        /*omdbapi.Factory.getInstance().getInfo(movie, type).enqueue(new Callback<Movies>() {
 
-            @Override
-            public void onResponse(Call<Movies> call, Response<Movies> response) {
-
-                if (response.body().getSearch() != null) {
-                    movieList = response.body().getSearch();
-                    simpleFragmentInteraction.getMovieList(movieList);
-                    gridFragmentInteraction.getMovieList(movieList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Movies> call, Throwable t) {
-                Log.e("failed", t.getMessage());
-            }
-        });*/
     }
 
     public void back(View v) {
