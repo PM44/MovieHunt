@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GridViewFragment extends Fragment implements BaseActivity.GridFragmentInteraction{
+public class GridViewFragment extends Fragment implements BaseActivity.GridFragmentInteraction {
 
     private RecyclerView recList;
     private View view;
@@ -55,10 +55,10 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         view = inflater.inflate(R.layout.fragment_grid_view, container, false);
         recList = (RecyclerView) view.findViewById(R.id.grid_recycler);
         recList.setHasFixedSize(true);
-        GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(),2);
+        GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(), 2);
         recList.setLayoutManager(llm);
-        recList.addItemDecoration(new GridItemDecoration(2,15, true));
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(createList(),getActivity(),new GridViewAdapter.OnItemClickListener() {
+        recList.addItemDecoration(new GridItemDecoration(2, 15, true));
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(createList(), getActivity(), new GridViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick() {
                 Intent i = new Intent(getContext(), BaseActivity.class);
@@ -73,13 +73,6 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
-        scrollListener = new EndlessRecyclerViewScrollListener(llm) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadNextDataFromApi(page);
-            }
-        };
-        recList.addOnScrollListener(scrollListener);
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -90,6 +83,7 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         });
         return view;
     }
+
     private class Task extends AsyncTask<Void, Void, String[]> {
 
         @Override
@@ -109,19 +103,19 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
             super.onPostExecute(result);
         }
     }
+
     public ArrayList<Search> createList() {
         movieList = new ArrayList<Search>(0);
         return movieList;
     }
-    public void getMovie(String movie)
-    {
+
+    public void getMovie(String movie) {
         movieList.clear();
         alphaAdapter.notifyDataSetChanged();
-        scrollListener.resetState();
-        movieName=movie;
+        movieName = movie;
         loadNextDataFromApi(1);
         recList.setHasFixedSize(true);
-        GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(),2);
+        GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(), 2);
         recList.setLayoutManager(llm);
         recList.setLayoutManager(llm);
         GridViewAdapter ca = new GridViewAdapter(movieList, getActivity(), new GridViewAdapter.OnItemClickListener() {
@@ -137,26 +131,24 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         alphaAdapter.setDuration(1000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
-        recList.addItemDecoration(new GridItemDecoration(2,15, true));
         scrollListener = new EndlessRecyclerViewScrollListener(llm) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadNextDataFromApi(page);
+                loadNextDataFromApi(page + 1);
             }
         };
         recList.addOnScrollListener(scrollListener);
     }
+
     public void loadNextDataFromApi(final int offset) {
-        Toast.makeText(getActivity(),"Page "+ offset,Toast.LENGTH_SHORT).show();
-        omdbapi.Factory.getInstance().getInfo(movieName,"movie",offset).enqueue(new Callback<Movies>() {
+        omdbapi.Factory.getInstance().getInfo(movieName, "movie", offset).enqueue(new Callback<Movies>() {
 
             @Override
             public void onResponse(Call<Movies> call, Response<Movies> response) {
 
                 if (response.body().getSearch() != null) {
                     movies = response.body().getSearch();
-                    for(int i=0;i<movies.size();i++)
-                    {
+                    for (int i = 0; i < movies.size(); i++) {
                         movieList.add(movies.get(i));
                     }
                     alphaAdapter.notifyItemInserted(movieList.size() - 1);

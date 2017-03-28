@@ -67,8 +67,6 @@ public class BaseActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.custom_action_bar, null);
         actionBar.setCustomView(view, new android.support.v7.app.ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         actionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        if (haveNetworkConnection() != true)
-            TastyToast.makeText(getApplicationContext(), "Please Connect To Internet", TastyToast.LENGTH_LONG, TastyToast.WARNING);
         relativeLayout = (RelativeLayout) findViewById(R.id.lol);
         relativeLayout.setBackgroundColor(Color.parseColor("#388FF5"));
         searchButton = (ImageButton) findViewById(R.id.imageButton);
@@ -77,25 +75,6 @@ public class BaseActivity extends AppCompatActivity {
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "font1.ttf");
         textView.setTypeface(typeFace);
         searchField = (EditText) findViewById(R.id.editText4);
-        searchField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (searchField.getText().toString().equals("")) {
-                } else {
-                    movieTitle(searchField.getText().toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         viewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         int pg_number = 0;
@@ -109,6 +88,29 @@ public class BaseActivity extends AppCompatActivity {
         viewPager.setCurrentItem(pg_number);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        if (haveNetworkConnection() != true)
+            TastyToast.makeText(getApplicationContext(), "Please Connect To Internet", TastyToast.LENGTH_LONG, TastyToast.WARNING);
+        else {
+            searchField.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (searchField.getText().toString().equals("")) {
+                    } else {
+                        movieTitle(searchField.getText().toString());
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
     }
 
     private void movieTitle(String movie) {

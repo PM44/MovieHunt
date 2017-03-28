@@ -77,7 +77,7 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
             title = (TextView) vi.findViewById(R.id.textView6);
             description = (TextView) vi.findViewById(R.id.textView7);
             poster = (CircleImageView) vi.findViewById(R.id.imageView4);
-            Typeface typeFace=Typeface.createFromAsset(parentAct.getAssets(),"font2.ttf");
+            Typeface typeFace = Typeface.createFromAsset(parentAct.getAssets(), "font2.ttf");
             title.setTypeface(typeFace);
             description.setTypeface(typeFace);
             vi.setOnClickListener(this);
@@ -85,7 +85,7 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
 
         @Override
         public void onClick(View v) {
-            TastyToast.makeText(parentAct,movieList.get(getPosition()).getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+            TastyToast.makeText(parentAct, movieList.get(getPosition()).getTitle(), TastyToast.LENGTH_LONG, TastyToast.INFO).show();
         }
     }
 }

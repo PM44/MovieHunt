@@ -38,7 +38,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
 
     @Override
-        public GridViewAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GridViewAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_card, parent, false);
         return new ListViewHolder(itemView);
     }
@@ -77,7 +77,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
         @Override
         public void onClick(View v) {
-            TastyToast.makeText(parentAct,movieList.get(getPosition()).getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+            TastyToast.makeText(parentAct, movieList.get(getPosition()).getTitle(), TastyToast.LENGTH_LONG, TastyToast.INFO).show();
 
         }
     }

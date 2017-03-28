@@ -1,12 +1,14 @@
 package com.elanic.pulkit.moviesearch;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
 /**
  * Created by pulkit on 26/3/17.
  */
 
-public class TabsPagerAdapter extends FragmentPagerAdapter{
+public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,6 +26,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
 
         return null;
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
@@ -34,6 +37,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
         }
         return null;
     }
+
     @Override
     public int getCount() {
         return 2;

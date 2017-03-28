@@ -4,8 +4,7 @@ package com.elanic.pulkit.moviesearch;
  * Created by pulkit on 26/3/17.
  */
 
-public class Search
-{
+public class Search {
     private String Year;
 
     private String Type;
@@ -16,59 +15,48 @@ public class Search
 
     private String Title;
 
-    public String getYear ()
-    {
+    public String getYear() {
         return Year;
     }
 
-    public void setYear (String Year)
-    {
+    public void setYear(String Year) {
         this.Year = Year;
     }
 
-    public String getType ()
-    {
+    public String getType() {
         return Type;
     }
 
-    public void setType (String Type)
-    {
+    public void setType(String Type) {
         this.Type = Type;
     }
 
-    public String getPoster ()
-    {
+    public String getPoster() {
         return Poster;
     }
 
-    public void setPoster (String Poster)
-    {
+    public void setPoster(String Poster) {
         this.Poster = Poster;
     }
 
-    public String getImdbID ()
-    {
+    public String getImdbID() {
         return imdbID;
     }
 
-    public void setImdbID (String imdbID)
-    {
+    public void setImdbID(String imdbID) {
         this.imdbID = imdbID;
     }
 
-    public String getTitle ()
-    {
+    public String getTitle() {
         return Title;
     }
 
-    public void setTitle (String Title)
-    {
+    public void setTitle(String Title) {
         this.Title = Title;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [Year = "+Year+", Type = "+Type+", Poster = "+Poster+", imdbID = "+imdbID+", Title = "+Title+"]";
+    public String toString() {
+        return "ClassPojo [Year = " + Year + ", Type = " + Type + ", Poster = " + Poster + ", imdbID = " + imdbID + ", Title = " + Title + "]";
     }
 }

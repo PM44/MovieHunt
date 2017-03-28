@@ -69,13 +69,6 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
-        scrollListener = new EndlessRecyclerViewScrollListener(llm) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadNextDataFromApi(page);
-            }
-        };
-        recList.addOnScrollListener(scrollListener);
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -86,6 +79,7 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         });
         return view;
     }
+
     private class Task extends AsyncTask<Void, Void, String[]> {
 
         @Override
@@ -110,12 +104,11 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         movieList = new ArrayList<Search>(0);
         return movieList;
     }
-    public void getMovie(String movie)
-    {
+
+    public void getMovie(String movie) {
         movieList.clear();
         alphaAdapter.notifyDataSetChanged();
-        scrollListener.resetState();
-        movieName=movie;
+        movieName = movie;
         loadNextDataFromApi(1);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -142,19 +135,18 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         };
         recList.addOnScrollListener(scrollListener);
     }
+
     public void loadNextDataFromApi(final int offset) {
-        Toast.makeText(getActivity(),"Page "+ offset,Toast.LENGTH_SHORT).show();
-        omdbapi.Factory.getInstance().getInfo(movieName,"movie",offset).enqueue(new Callback<Movies>() {
+        omdbapi.Factory.getInstance().getInfo(movieName, "movie", offset).enqueue(new Callback<Movies>() {
 
             @Override
             public void onResponse(Call<Movies> call, Response<Movies> response) {
 
                 if (response.body().getSearch() != null) {
                     movies = response.body().getSearch();
-                   for(int i=0;i<movies.size();i++)
-                   {
-                       movieList.add(movies.get(i));
-                   }
+                    for (int i = 0; i < movies.size(); i++) {
+                        movieList.add(movies.get(i));
+                    }
                     alphaAdapter.notifyItemInserted(movieList.size() - 1);
                 }
             }
