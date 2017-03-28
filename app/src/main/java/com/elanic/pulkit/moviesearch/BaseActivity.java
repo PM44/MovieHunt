@@ -54,7 +54,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public interface GridFragmentInteraction {
-        public void getMovieList(Search[] movies);
+        public void getMovie(String movies);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void movieTitle(String movie) {
         simpleFragmentInteraction.getMovie(movie);
-
+        gridFragmentInteraction.getMovie(movie);
     }
 
     public void back(View v) {

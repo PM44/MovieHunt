@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 /**
  * Created by pulkit on 27/3/17.
  */
 
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListViewHolder> {
-    private Search[] movieList;
+    private ArrayList<Search> movieList;
     private Activity parentAct;
     private GridViewAdapter.ListViewHolder h1;
     private int lastPosition = -1;
@@ -28,7 +30,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
     }
 
-    GridViewAdapter(Search[] movieList1, Activity activity, GridViewAdapter.OnItemClickListener listener) {
+    GridViewAdapter(ArrayList<Search> movieList1, Activity activity, GridViewAdapter.OnItemClickListener listener) {
         movieList = movieList1;
         parentAct = activity;
         this.listener = listener;
@@ -45,9 +47,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
     @Override
     public void onBindViewHolder(final GridViewAdapter.ListViewHolder holder, final int position) {
         h1 = holder;
-        holder.title.setText((String) movieList[position].getTitle());
-        holder.description.setText((String) movieList[position].getYear());
-        Picasso.with(parentAct).load(movieList[position].getPoster()).into(holder.poster);
+        holder.title.setText((String) movieList.get(position).getTitle());
+        holder.description.setText((String) movieList.get(position).getYear());
+        Picasso.with(parentAct).load(movieList.get(position).getPoster()).into(holder.poster);
         for (int i = 0; i < getItemCount(); i++) {
             //animate(itemView, i);
         }
@@ -55,8 +57,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
     @Override
     public int getItemCount() {
-        Log.d("itemCount", movieList.length + "");
-        return movieList.length;
+        Log.d("itemCount", movieList.size() + "");
+        return movieList.size();
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -75,7 +77,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
         @Override
         public void onClick(View v) {
-            TastyToast.makeText(parentAct,movieList[getPosition()].getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+            TastyToast.makeText(parentAct,movieList.get(getPosition()).getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
 
         }
     }
