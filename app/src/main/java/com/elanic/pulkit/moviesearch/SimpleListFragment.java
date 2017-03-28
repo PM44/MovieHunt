@@ -14,17 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SimpleListFragment extends Fragment implements BaseActivity.SimpleFragmentInteraction {
-    public RecyclerView recList;
-    View view;
-    WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
-    public SimpleListFragment() {
-        // Required empty public constructor
-    }
+    private RecyclerView recList;
+    private View view;
+    private String movieName;
+    private ArrayList<Search> movieList;
+    private ArrayList<Search> movies;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
+    ScaleInAnimationAdapter alphaAdapter;
+    ScaleInAnimationAdapter alphaAdapter1;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,11 +65,17 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
 
             }
         });
-        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(simpleListAdapter);
+        alphaAdapter = new ScaleInAnimationAdapter(simpleListAdapter);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
+        scrollListener = new EndlessRecyclerViewScrollListener(llm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+            }
+        };
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -91,23 +106,19 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         }
     }
 
-    public Search[] createList() {
-        Search s = new Search();
-        s.setTitle("p");
-        s.setYear("p");
-        Search[] s1 = new Search[1];
-        s1[0] = s;
-        return s1;
+    public ArrayList<Search> createList() {
+        movieList = new ArrayList<Search>(0);
+        return movieList;
     }
-
-
-    public void getMovieList(Search[] movies) {
-        Search[] movieList = movies;
+    public void getMovie(String movie)
+    {
+        movieName=movie;
+        loadNextDataFromApi(1);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        SimpleListAdapter ca = new SimpleListAdapter(movies, getActivity(), new SimpleListAdapter.OnItemClickListener() {
+        SimpleListAdapter ca = new SimpleListAdapter(movieList, getActivity(), new SimpleListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick() {
                 Intent i = new Intent(getContext(), BaseActivity.class);
@@ -115,10 +126,53 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
                 getActivity().finish();
             }
         });
-        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(ca);
+        alphaAdapter = new ScaleInAnimationAdapter(ca);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(1000);
         alphaAdapter.setFirstOnly(false);
         recList.setAdapter(alphaAdapter);
+    }
+
+   /* public void getMovieList(Search[] movies) {
+        movieList = movies;
+        recList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
+        SimpleListAdapter ca = new SimpleListAdapter(movieList, getActivity(), new SimpleListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick() {
+                Intent i = new Intent(getContext(), BaseActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
+        alphaAdapter = new ScaleInAnimationAdapter(ca);
+        alphaAdapter.setInterpolator(new OvershootInterpolator());
+        alphaAdapter.setDuration(1000);
+        alphaAdapter.setFirstOnly(false);
+        recList.setAdapter(alphaAdapter);
+    }*/
+    public void loadNextDataFromApi(final int offset) {
+        omdbapi.Factory.getInstance().getInfo(movieName,"movie",offset).enqueue(new Callback<Movies>() {
+
+            @Override
+            public void onResponse(Call<Movies> call, Response<Movies> response) {
+
+                if (response.body().getSearch() != null) {
+                    movies = response.body().getSearch();
+                   for(int i=0;i<movies.size();i++)
+                   {
+                       movieList.add(movies.get(i));
+                   }
+                    alphaAdapter.notifyItemInserted(movieList.size() - 1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Movies> call, Throwable t) {
+                Log.e("failed", t.getMessage());
+            }
+        });
     }
 }

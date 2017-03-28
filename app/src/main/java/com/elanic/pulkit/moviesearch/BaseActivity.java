@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sdsmdg.tastytoast.TastyToast;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
     public GridFragmentInteraction gridFragmentInteraction;
 
     public interface SimpleFragmentInteraction {
-        public void getMovieList(Search[] movies);
+        public void getMovie(String movie);
     }
 
     public interface GridFragmentInteraction {
@@ -65,18 +67,16 @@ public class BaseActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.custom_action_bar, null);
         actionBar.setCustomView(view, new android.support.v7.app.ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         actionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        if (haveNetworkConnection() != true) {
-
-        }
+        if (haveNetworkConnection() != true)
+            TastyToast.makeText(getApplicationContext(), "Please Connect To Internet", TastyToast.LENGTH_LONG, TastyToast.WARNING);
         relativeLayout = (RelativeLayout) findViewById(R.id.lol);
         relativeLayout.setBackgroundColor(Color.parseColor("#388FF5"));
-        searchButton=(ImageButton)findViewById(R.id.imageButton);
-        backButton=(ImageButton)findViewById(R.id.imageButton2);
-        textView=(TextView)findViewById(R.id.bar_title1);
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font1.ttf");
+        searchButton = (ImageButton) findViewById(R.id.imageButton);
+        backButton = (ImageButton) findViewById(R.id.imageButton2);
+        textView = (TextView) findViewById(R.id.bar_title1);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "font1.ttf");
         textView.setTypeface(typeFace);
         searchField = (EditText) findViewById(R.id.editText4);
-        movieTitle("a");
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -112,7 +112,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void movieTitle(String movie) {
-        omdbapi.Factory.getInstance().getInfo(movie, type).enqueue(new Callback<Movies>() {
+        simpleFragmentInteraction.getMovie(movie);
+        /*omdbapi.Factory.getInstance().getInfo(movie, type).enqueue(new Callback<Movies>() {
 
             @Override
             public void onResponse(Call<Movies> call, Response<Movies> response) {
@@ -128,7 +129,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onFailure(Call<Movies> call, Throwable t) {
                 Log.e("failed", t.getMessage());
             }
-        });
+        });*/
     }
 
     public void back(View v) {
@@ -146,11 +147,12 @@ public class BaseActivity extends AppCompatActivity {
         textView.setVisibility(View.INVISIBLE);
         searchField.setCursorVisible(true);
     }
+
     private boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
 
-        ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo[] netInfo = cm.getAllNetworkInfo();
         for (NetworkInfo ni : netInfo) {
             if (ni.getTypeName().equalsIgnoreCase("WIFI"))

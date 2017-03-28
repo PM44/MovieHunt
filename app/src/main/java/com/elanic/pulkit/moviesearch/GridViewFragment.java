@@ -94,11 +94,7 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         }
     }
     public Search[] createList() {
-        Search s = new Search();
-        s.setTitle("p");
-        s.setYear("p");
-        Search[] s1 = new Search[1];
-        s1[0] = s;
+        Search[] s1 = new Search[0];
         return s1;
     }
 

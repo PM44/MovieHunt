@@ -11,7 +11,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -24,7 +26,7 @@ import static com.elanic.pulkit.moviesearch.R.id.textView;
 
 
 class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewHolder> {
-    private Search[] movieList;
+    private ArrayList<Search> movieList;
     private Activity parentAct;
     private SimpleListAdapter.ListViewHolder h1;
     private int lastPosition = -1;
@@ -35,7 +37,7 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
 
     }
 
-    SimpleListAdapter(Search[] movieList1, Activity activity, OnItemClickListener listener) {
+    SimpleListAdapter(ArrayList<Search> movieList1, Activity activity, OnItemClickListener listener) {
         movieList = movieList1;
         parentAct = activity;
         this.listener = listener;
@@ -51,9 +53,9 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
     @Override
     public void onBindViewHolder(final SimpleListAdapter.ListViewHolder holder, final int position) {
         h1 = holder;
-        holder.title.setText((String) movieList[position].getTitle());
-        holder.description.setText((String) movieList[position].getYear());
-        Picasso.with(parentAct).load(movieList[position].getPoster()).into(holder.poster);
+        holder.title.setText((String) movieList.get(position).getTitle());
+        holder.description.setText((String) movieList.get(position).getYear());
+        Picasso.with(parentAct).load(movieList.get(position).getPoster()).into(holder.poster);
         for (int i = 0; i < getItemCount(); i++) {
             //animate(itemView, i);
         }
@@ -61,8 +63,8 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
 
     @Override
     public int getItemCount() {
-        Log.d("itemCount", movieList.length + "");
-        return movieList.length;
+        Log.d("itemCount", movieList.size() + "");
+        return movieList.size();
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -79,11 +81,11 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
             title.setTypeface(typeFace);
             description.setTypeface(typeFace);
             vi.setOnClickListener(this);
-
         }
 
         @Override
         public void onClick(View v) {
+            TastyToast.makeText(parentAct,movieList.get(getPosition()).getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
         }
     }
 }

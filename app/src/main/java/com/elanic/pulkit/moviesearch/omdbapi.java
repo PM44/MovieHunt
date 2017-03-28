@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface omdbapi {
     String  baseurl="http://www.omdbapi.com";
     @GET("/")
-    Call<Movies> getInfo(@Query("s")String apiKey, @Query("type")String email);
+    Call<Movies> getInfo(@Query("s")String s, @Query("type")String type,@Query("page")int page);
     class Factory
     {
         public static omdbapi services=null;

@@ -1,5 +1,7 @@
 package com.elanic.pulkit.moviesearch;
 
+import java.util.ArrayList;
+
 /**
  * Created by pulkit on 26/3/17.
  */
@@ -7,18 +9,18 @@ package com.elanic.pulkit.moviesearch;
 
 public class Movies
 {
-    private Search[] Search;
+    private ArrayList<Search> Search;
 
     private String totalResults;
 
     private String Response;
 
-    public Search[] getSearch ()
+    public ArrayList<Search> getSearch ()
     {
         return Search;
     }
 
-    public void setSearch (Search[] Search)
+    public void setSearch (ArrayList<Search> Search)
     {
         this.Search = Search;
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -74,6 +75,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
         @Override
         public void onClick(View v) {
+            TastyToast.makeText(parentAct,movieList[getPosition()].getTitle(),TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+
         }
     }
 }
