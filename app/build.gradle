@@ -36,5 +36,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.florent37:materialtextfield:1.0.7'
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
+    compile 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
     testCompile 'junit:junit:4.12'
 }

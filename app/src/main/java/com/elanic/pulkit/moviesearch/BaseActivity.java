@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.ContactsContract;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.SharedPreferencesCompat;
@@ -32,18 +34,18 @@ import retrofit2.Response;
 
 public class BaseActivity extends AppCompatActivity {
 
-    String type = "movie";
-    String movie = "A";
+    private String type = "movie";
+    private String movie = "A";
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private Search[] movieList;
     private EditText searchField;
-    RelativeLayout relativeLayout;
-    public SimpleFragmentInteraction simpleFragmentInteraction;
-    public GridFragmentInteraction gridFragmentInteraction;
+    private RelativeLayout relativeLayout;
     private ImageButton searchButton;
     private ImageButton backButton;
     private TextView textView;
+    public SimpleFragmentInteraction simpleFragmentInteraction;
+    public GridFragmentInteraction gridFragmentInteraction;
 
     public interface SimpleFragmentInteraction {
         public void getMovieList(Search[] movies);
@@ -63,6 +65,9 @@ public class BaseActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.custom_action_bar, null);
         actionBar.setCustomView(view, new android.support.v7.app.ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         actionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        if (haveNetworkConnection() != true) {
+
+        }
         relativeLayout = (RelativeLayout) findViewById(R.id.lol);
         relativeLayout.setBackgroundColor(Color.parseColor("#388FF5"));
         searchButton=(ImageButton)findViewById(R.id.imageButton);
@@ -139,6 +144,22 @@ public class BaseActivity extends AppCompatActivity {
         searchButton.setVisibility(View.INVISIBLE);
         backButton.setVisibility(View.VISIBLE);
         textView.setVisibility(View.INVISIBLE);
-        searchField.setCursorVisible(true   );
+        searchField.setCursorVisible(true);
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 }
