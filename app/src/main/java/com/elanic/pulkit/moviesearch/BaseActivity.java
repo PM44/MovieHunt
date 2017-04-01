@@ -51,6 +51,10 @@ public class BaseActivity extends AppCompatActivity {
     public SimpleFragmentInteraction simpleFragmentInteraction;
     public GridFragmentInteraction gridFragmentInteraction;
 
+    public static enum FragmentType {
+        GRID, LIST;
+    }
+
     public interface SimpleFragmentInteraction {
         public void getMovie(String movie);
     }
