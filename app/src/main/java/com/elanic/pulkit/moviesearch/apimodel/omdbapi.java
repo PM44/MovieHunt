@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.apimodel;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;

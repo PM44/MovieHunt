@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,15 +9,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.GridView;
-import android.widget.Toast;
+
+import com.elanic.pulkit.moviesearch.BaseActivity;
+import com.elanic.pulkit.moviesearch.EndlessRecyclerViewScrollListener;
+import com.elanic.pulkit.moviesearch.GridItemDecoration;
+import com.elanic.pulkit.moviesearch.R;
+import com.elanic.pulkit.moviesearch.adapters.GridViewAdapter;
+import com.elanic.pulkit.moviesearch.apimodel.Movies;
+import com.elanic.pulkit.moviesearch.apimodel.Search;
+import com.elanic.pulkit.moviesearch.apimodel.omdbapi;
 
 import java.util.ArrayList;
 
@@ -37,7 +43,6 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
     private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
     ScaleInAnimationAdapter alphaAdapter;
     private EndlessRecyclerViewScrollListener scrollListener;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

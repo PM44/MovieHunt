@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.apimodel;
 
 import java.util.ArrayList;
 

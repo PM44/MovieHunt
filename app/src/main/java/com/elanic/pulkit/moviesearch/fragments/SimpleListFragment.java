@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
+
+import com.elanic.pulkit.moviesearch.BaseActivity;
+import com.elanic.pulkit.moviesearch.EndlessRecyclerViewScrollListener;
+import com.elanic.pulkit.moviesearch.R;
+import com.elanic.pulkit.moviesearch.apimodel.Movies;
+import com.elanic.pulkit.moviesearch.apimodel.Search;
+import com.elanic.pulkit.moviesearch.apimodel.omdbapi;
+import com.elanic.pulkit.moviesearch.adapters.SimpleListAdapter;
 
 import java.util.ArrayList;
 

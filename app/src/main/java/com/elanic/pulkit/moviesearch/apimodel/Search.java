@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.apimodel;
 
 /**
  * Created by pulkit on 26/3/17.

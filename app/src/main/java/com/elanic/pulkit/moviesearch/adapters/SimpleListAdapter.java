@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.adapters;
 
 import android.app.Activity;
 import android.graphics.Typeface;
@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elanic.pulkit.moviesearch.R;
+import com.elanic.pulkit.moviesearch.apimodel.Search;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.elanic.pulkit.moviesearch.R.id.textView;
 
 
-class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewHolder> {
+public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewHolder> {
     private ArrayList<Search> movieList;
     private Activity parentAct;
     private SimpleListAdapter.ListViewHolder h1;
@@ -37,7 +39,7 @@ class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.ListViewH
 
     }
 
-    SimpleListAdapter(ArrayList<Search> movieList1, Activity activity, OnItemClickListener listener) {
+    public SimpleListAdapter(ArrayList<Search> movieList1, Activity activity, OnItemClickListener listener) {
         movieList = movieList1;
         parentAct = activity;
         this.listener = listener;

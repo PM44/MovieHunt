@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elanic.pulkit.moviesearch.adapters.TabsPagerAdapter;
+import com.elanic.pulkit.moviesearch.apimodel.Search;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import retrofit2.Call;

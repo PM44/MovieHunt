@@ -1,4 +1,4 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.elanic.pulkit.moviesearch.R;
+import com.elanic.pulkit.moviesearch.apimodel.Search;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +33,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ListVi
 
     }
 
-    GridViewAdapter(ArrayList<Search> movieList1, Activity activity, GridViewAdapter.OnItemClickListener listener) {
+    public GridViewAdapter(ArrayList<Search> movieList1, Activity activity, GridViewAdapter.OnItemClickListener listener) {
         movieList = movieList1;
         parentAct = activity;
         this.listener = listener;

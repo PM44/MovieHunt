@@ -1,8 +1,11 @@
-package com.elanic.pulkit.moviesearch;
+package com.elanic.pulkit.moviesearch.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.elanic.pulkit.moviesearch.fragments.GridViewFragment;
+import com.elanic.pulkit.moviesearch.fragments.SimpleListFragment;
 
 /**
  * Created by pulkit on 26/3/17.
