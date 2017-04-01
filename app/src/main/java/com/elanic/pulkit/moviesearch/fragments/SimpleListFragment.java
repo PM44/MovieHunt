@@ -1,28 +1,23 @@
 package com.elanic.pulkit.moviesearch.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Toast;
 
 import com.elanic.pulkit.moviesearch.BaseActivity;
 import com.elanic.pulkit.moviesearch.EndlessRecyclerViewScrollListener;
 import com.elanic.pulkit.moviesearch.R;
+import com.elanic.pulkit.moviesearch.adapters.RecyclerViewAdapter;
 import com.elanic.pulkit.moviesearch.apimodel.Movies;
 import com.elanic.pulkit.moviesearch.apimodel.Search;
 import com.elanic.pulkit.moviesearch.apimodel.omdbapi;
-import com.elanic.pulkit.moviesearch.adapters.SimpleListAdapter;
 
 import java.util.ArrayList;
 
@@ -62,17 +57,8 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getBaseContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        SimpleListAdapter simpleListAdapter = new SimpleListAdapter(createList(), getActivity(), new SimpleListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick() {
-                Intent i = new Intent(getContext(), BaseActivity.class);
-                startActivity(i);
-                getActivity().finish();
-
-
-            }
-        });
-        alphaAdapter = new ScaleInAnimationAdapter(simpleListAdapter);
+        RecyclerViewAdapter recyclerViewAdapter= new RecyclerViewAdapter(createList(), getActivity(), BaseActivity.FragmentType.LIST);
+        alphaAdapter = new ScaleInAnimationAdapter(recyclerViewAdapter);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
@@ -122,14 +108,7 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        SimpleListAdapter ca = new SimpleListAdapter(movieList, getActivity(), new SimpleListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick() {
-                Intent i = new Intent(getContext(), BaseActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
+        RecyclerViewAdapter ca = new RecyclerViewAdapter(movieList, getActivity(), BaseActivity.FragmentType.LIST);
         alphaAdapter = new ScaleInAnimationAdapter(ca);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(1000);
@@ -161,7 +140,6 @@ public class SimpleListFragment extends Fragment implements BaseActivity.SimpleF
 
             @Override
             public void onFailure(Call<Movies> call, Throwable t) {
-                Log.e("failed", t.getMessage());
             }
         });
     }

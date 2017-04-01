@@ -1,16 +1,11 @@
 package com.elanic.pulkit.moviesearch.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +15,7 @@ import com.elanic.pulkit.moviesearch.BaseActivity;
 import com.elanic.pulkit.moviesearch.EndlessRecyclerViewScrollListener;
 import com.elanic.pulkit.moviesearch.GridItemDecoration;
 import com.elanic.pulkit.moviesearch.R;
-import com.elanic.pulkit.moviesearch.adapters.GridViewAdapter;
+import com.elanic.pulkit.moviesearch.adapters.RecyclerViewAdapter;
 import com.elanic.pulkit.moviesearch.apimodel.Movies;
 import com.elanic.pulkit.moviesearch.apimodel.Search;
 import com.elanic.pulkit.moviesearch.apimodel.omdbapi;
@@ -63,17 +58,8 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(), 2);
         recList.setLayoutManager(llm);
         recList.addItemDecoration(new GridItemDecoration(2, 15, true));
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(createList(), getActivity(), new GridViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick() {
-                Intent i = new Intent(getContext(), BaseActivity.class);
-                startActivity(i);
-                getActivity().finish();
-
-
-            }
-        });
-        alphaAdapter = new ScaleInAnimationAdapter(gridViewAdapter);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(createList(), getActivity(), BaseActivity.FragmentType.GRID);
+        alphaAdapter = new ScaleInAnimationAdapter(recyclerViewAdapter);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(4000);
         alphaAdapter.setFirstOnly(false);
@@ -123,14 +109,7 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
         GridLayoutManager llm = new GridLayoutManager(getActivity().getBaseContext(), 2);
         recList.setLayoutManager(llm);
         recList.setLayoutManager(llm);
-        GridViewAdapter ca = new GridViewAdapter(movieList, getActivity(), new GridViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick() {
-                Intent i = new Intent(getContext(), BaseActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
+        RecyclerViewAdapter ca = new RecyclerViewAdapter(movieList, getActivity(), BaseActivity.FragmentType.GRID);
         alphaAdapter = new ScaleInAnimationAdapter(ca);
         alphaAdapter.setInterpolator(new OvershootInterpolator());
         alphaAdapter.setDuration(1000);
@@ -162,7 +141,6 @@ public class GridViewFragment extends Fragment implements BaseActivity.GridFragm
 
             @Override
             public void onFailure(Call<Movies> call, Throwable t) {
-                Log.e("failed", t.getMessage());
             }
         });
     }
